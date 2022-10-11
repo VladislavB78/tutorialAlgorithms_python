@@ -5,11 +5,10 @@
 
 ## Squares of sorted array
 
-Возвращает объединение двух упорядоченных массивов в один (O(n))
+Возвращает массив возведённых в квадрат чисел, сохраняя упорядоченность
 
 ```python
 def merge(first, second):
-    """Возвращает объединение двух упорядоченных массивов в один"""
     pA = pB = 0
     res = []
     while pA != len(first) and pB != len(second):
@@ -31,7 +30,6 @@ def merge(first, second):
 
 
 def squares(arr):
-    """Возвращает массив возведённых в квадрат чисел, сохраняя упорядоченность"""
     i = 0
     while i < len(arr) and arr[i] < 0:
         i += 1
@@ -57,9 +55,10 @@ if __name__ == '__main__':
 
 ## Merge to sorted arrays
 
+Возвращает объединение двух упорядоченных массивов в один
+
 ```python
 def merge(first, second):
-    """Возвращает объединение двух упорядоченных массивов в один"""
     pA = pB = 0
     res = []
     while pA != len(first) and pB != len(second):
