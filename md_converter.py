@@ -1,3 +1,5 @@
+from os.path import exists
+
 INPUT_CODE_DELIMITER = '# ---end---'
 INPUT_MD_DELIMITER = '<!---split here-->'
 OUTPUT_FILE_NAME = 'out.md'
@@ -20,12 +22,12 @@ def read_file(file_name):
     return data
 
 
-def write_file(file_name, data):
-    file_output = open(file_name, mode='w', encoding='UTF-8')
-    file_output.write(data)
-    file_output.close()
+def md_convert(data):
+    titles, source_code = data.split(INPUT_CODE_DELIMITER)
+    title, description = prepare_md_titles(data)
+    result_md = prepare_md_format(title, description, source_code)
 
-    return 'Done!'
+    return result_md
 
 
 def prepare_md_titles(data):
@@ -40,11 +42,10 @@ def prepare_md_titles(data):
 
 
 def prepare_md_format(title, description, source_code):
-    # md_link = '-'.join(title.lower().split())
     md_link = '+ [{}](#{})'.format(title, '-'.join(title.lower().split()))
 
     template_new = """{}
-<!---split here-->
+{}
 
 ## {}
 
@@ -61,34 +62,33 @@ def prepare_md_format(title, description, source_code):
 ```python{}```"""
 
     template_merge = """{}
-<!---split here-->
+{}
 
 {}"""
 
-    if is_file_exists(OUTPUT_FILE_NAME):
+    if exists(OUTPUT_FILE_NAME):
         links, sources = read_file(OUTPUT_FILE_NAME).split(INPUT_MD_DELIMITER)
         links += md_link
         sources += template_append.format(title, description, source_code)
 
-        return template_merge.format(links, sources.lstrip('\n'))
+        return template_merge.format(links, INPUT_MD_DELIMITER, sources.lstrip('\n'))
     else:
-        return template_new.format(md_link, title, description, source_code)
+        return template_new.format(md_link, INPUT_MD_DELIMITER, title, description, source_code)
 
 
-def md_convert(data):
-    titles, source_code = data.split(INPUT_CODE_DELIMITER)
-    title, description = prepare_md_titles(data)
-    result_md = prepare_md_format(title, description, source_code)
+def write_file(file_name, data):
+    file_output = open(file_name, mode='w', encoding='UTF-8')
+    file_output.write(data)
+    file_output.close()
 
-    return result_md
+    return 'Done!'
 
 
-def main():
-    file_name = 'compress.py'
-    data = read_file(file_name)
+def start_converter(file_path):
+    data = read_file(file_path)
     result = md_convert(data)
     print(write_file(OUTPUT_FILE_NAME, result))
 
 
 if __name__ == '__main__':
-    main()
+    start_converter('src/compress.py')
