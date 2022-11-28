@@ -71,3 +71,13 @@ lst = ['43141', '32441', '431', '4154', '43121']
 res1 = [str(int(num) ** 2) for num in lst if int(num) % 2 == 0]
 res2 = list(map(lambda el: str(int(el) ** 2), list(filter(lambda num: int(num) % 2 == 0, lst))))
 ```
+
+## 16. Получить сумму по столбцам у двумерного списка.
+```python
+a = [[11.9, 12.2, 12.9],
+     [15.3, 15.1, 15.1],
+     [16.3, 16.5, 16.5],
+     [17.7, 17.5, 18.1]]
+res1 = [sum(el) for el in list(zip(*a))]
+res2 = list(map(sum, list(zip(*a))))
+```
