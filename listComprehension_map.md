@@ -68,8 +68,8 @@ res = list(zip(list(map(lambda f, s: f+s, nums_first, nums_second)), list(map(la
 ## 14. На входе список строк из чисел. <br/> Найти четные квадраты этих чисел. <br/> Ответ записать снова в список из строк, но уже отфильтровать все четные квадраты.
 ```python
 lst = ['43141', '32441', '431', '4154', '43121']
-res1 = [str(int(num) ** 2) for num in lst if int(num) % 2 == 0]
-res2 = list(map(lambda el: str(int(el) ** 2), list(filter(lambda num: int(num) % 2 == 0, lst))))
+res1 = [str(int(num) ** 2) for num in lst if (int(num) ** 2) % 2 == 0]
+res2 = list(map(lambda el: str(int(el) ** 2), list(filter(lambda num: (int(num) ** 2) % 2 == 0, lst))))
 ```
 
 ## 16. Получить сумму по столбцам у двумерного списка.
