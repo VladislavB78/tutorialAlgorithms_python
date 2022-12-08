@@ -1,11 +1,11 @@
-## Complex
+# Complex numbers
++ [Complex](#complex)
++ [Unit tests](#unit-tests)
 
+## Complex
 Operations with complex numbers: +, -, *, /, modulus. Override defs __eq__ and __str__. Unit tests
 
 ```python
-import unittest
-
-
 class Complex:
 
     def __init__(self, real, imaginary):
@@ -32,12 +32,21 @@ class Complex:
 
     def __eq__(self, other):
         return self.real == other.real and self.imaginary == other.imaginary
+        
+    def __ne__(self, other):
+        return self.real != other.real or self.imaginary != other.imaginary
 
     def __str__(self):
         if self.imaginary < 0:
             return f"{self.real}{self.imaginary}i"
         else:
             return f"{self.real}+{self.imaginary}i"
+```
+
+## Unit tests
+```python
+import unittest
+from complex import Complex
 
 
 class TestComplex(unittest.TestCase):
@@ -81,7 +90,37 @@ class TestComplex(unittest.TestCase):
         self.assertEqual(first.modulus(), 5 ** 0.5)
         self.assertEqual(second.modulus(), 5.0)
 
+    def test___eq__(self):
+        first = Complex(1, 2)
+        second = Complex(3, 4)
+        third = Complex(1, 2)
+
+        res_1 = first == second
+        res_2 = first == third
+
+        self.assertEqual(res_1, False)
+        self.assertEqual(res_2, True)
+
+    def test___ne__(self):
+        first = Complex(1, 2)
+        second = Complex(3, 4)
+        third = Complex(1, 2)
+
+        res_1 = first != second
+        res_2 = first != third
+
+        self.assertEqual(res_1, True)
+        self.assertEqual(res_2, False)
+
+    def test___str__(self):
+        first = Complex(1, 2)
+        second = Complex(3, -4)
+
+        self.assertEqual(str(first), '1+2i')
+        self.assertEqual(str(second), '3-4i')
+
 
 if __name__ == '__main__':
     unittest.main()
+
 ```
