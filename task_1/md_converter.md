@@ -1,3 +1,5 @@
+## Converter
+```python
 from os.path import exists
 
 INPUT_CODE_DELIMITER = '# ---end---'
@@ -92,3 +94,4 @@ def start_converter(file_path):
 
 if __name__ == '__main__':
     start_converter('src/compress.py')
+```
