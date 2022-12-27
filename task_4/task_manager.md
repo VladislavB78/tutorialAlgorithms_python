@@ -7,6 +7,8 @@
 
 ## Task Subtask ComplexTask Status
 ```python
+class Task:
+
     def __init__(self, id, name, description, status):
         self.__id = id
         self.__name = name
